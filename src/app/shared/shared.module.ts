@@ -4,9 +4,10 @@ import { NotFoundComponent } from './components/errors/not-found/not-found.compo
 import { ValidationMessagesComponent } from './components/errors/validation-messages/validation-messages.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NotificationComponent } from './models/notification/notification.component';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 
 @NgModule({
