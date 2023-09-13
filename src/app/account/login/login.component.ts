@@ -4,7 +4,7 @@ import { AccountService } from '../account.service';
 import { SharedService } from 'src/app/shared/shared.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
-import { User } from 'src/app/shared/models/user';
+import { User } from 'src/app/shared/models/account/user';
 
 @Component({
   selector: 'app-login',
@@ -65,5 +65,9 @@ export class LoginComponent implements OnInit {
         }
       });
     //}
+  }
+
+  resendEmailConfirmationLink() {
+    this.router.navigateByUrl("/account/send-email/resend-email-confirmation-link/");
   }
 }
