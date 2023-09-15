@@ -8,6 +8,8 @@ import { ReplaySubject, map, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { ConfirmEmail } from '../shared/models/account/confirm-email';
 import { ResetPassword } from '../shared/models/account/reset-password';
+import { RegisterWithExternal } from '../shared/models/account/registerWithExternal';
+import { LoginWithExternal } from '../shared/models/account/loginWithExternal';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +49,16 @@ export class AccountService {
     );
   }
 
+  loginWithThirdParty(model: LoginWithExternal) {
+    return this.httpClient.post<User>(`${environment.appUrl}/api/auth/login-with-third-party`, model).pipe(
+      map((user: User) => {
+        if(user) {
+          this.setUser(user);
+        }
+      })
+    );
+  }
+
   logout() {
     localStorage.removeItem(environment.userKey);
     this.userService.next(null);
@@ -55,6 +67,17 @@ export class AccountService {
 
   register(model: Register) {
     return this.httpClient.post(`${environment.appUrl}/api/auth/register`, model);
+  }
+
+  registerWithThirdParty(model: RegisterWithExternal) {
+    return this.httpClient.post<User>(`${environment.appUrl}/api/auth/register-with-third-party`, model).pipe(
+      map((user: User) => {
+        if(user)
+        {
+          this.setUser(user);
+        }
+      })
+    );
   }
 
   confirmEmail(model: ConfirmEmail) {
