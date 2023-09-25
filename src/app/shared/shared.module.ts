@@ -8,13 +8,15 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NotificationComponent } from './models/notification/notification.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { UserHasRoleDirective } from './directives/user-has-role.directive';
 
 
 @NgModule({
   declarations: [
     NotFoundComponent,
     ValidationMessagesComponent,
-    NotificationComponent
+    NotificationComponent,
+    UserHasRoleDirective
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ValidationMessagesComponent
+    ValidationMessagesComponent,
+    UserHasRoleDirective
   ]
 })
 export class SharedModule { }

@@ -16,6 +16,9 @@
             <li class="nav-item">
               <a class="nav-link" routerLink="/play" routerLinkActive="active">Play</a>
             </li>
+            <li class="nav-item" *appUserHasRole="['admin']">
+              <a class="nav-link" routerLink="/admin" routerLinkActive="active">admin</a>
+            </li>
         </ng-container>
         </ul>
 
