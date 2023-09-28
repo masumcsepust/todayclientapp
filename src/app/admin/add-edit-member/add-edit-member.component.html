@@ -1,0 +1,102 @@
+<div class="d-flex justify-content-center" *ngIf="formInitialized">
+  <div class="col-12 col-lg-5">
+    <main class="form-signing">
+      <form [formGroup]="memberForm" (ngSubmit)="submit()" autocomplete="off">
+        <div class="text-center mb-4">
+          <h3 class="mb-3 font-weight-normal">
+            <span class="text-warning" *ngIf="addNew">Add</span>
+            <span class="text-warning" *ngIf="!addNew">Update</span>
+            Member
+          </h3>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" formControlName="firstName" placeholder="first name"
+            [class.is-invalid]="submitted && memberForm.get('firstName')?.hasError('required')" for="firstName">
+            <label for="firstName">First name</label>
+            <span class="text-danger" *ngIf="submitted && memberForm.get('firstName')?.hasError('required')">
+              Firstname is required
+            </span>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" formControlName="lastName" placeholder="last name"
+            [class.is-invalid]="submitted && memberForm.get('lastName')?.hasError('required')">
+            <label for="lastName">Last name</label>
+            <span class="text-danger" *ngIf="submitted && memberForm.get('lastName')?.hasError('required')">
+              Lastname is required
+            </span>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" formControlName="userName" placeholder="username"
+            [class.is-invalid]="submitted && memberForm.get('userName')?.hasError('required')">
+            <label for="userName">Username</label>
+            <span class="text-danger" *ngIf="submitted && memberForm.get('userName')?.hasError('required')">
+              Username is required
+            </span>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" formControlName="password" placeholder="password"
+            [class.is-invalid]="submitted && memberForm.get('password')?.errors" (change)="passwordOnChange()">
+            <label for="password">Password</label>
+            <span class="text-danger" *ngIf="submitted && memberForm.get('password')?.hasError('required')">
+              Password is required
+            </span>
+            <span class="text-danger" *ngIf="submitted
+                  && memberForm.get('password')?.hasError('minlength')
+                  || memberForm.get('password')?.hasError('maxlength')"
+                >
+                Password must be at least 6 and maximum 15 characters
+              </span>
+              <div *ngIf="!addNew">
+                <span class="text-info fw-bold">Note:</span>
+                If you don't intend to change the member password, then leave the password field empty
+              </div>
+        </div>
+
+        <div class="row">
+          <div class="col-2">
+            <label for="roles">Roles</label>
+          </div>
+          <div class="col-10">
+            <div class="btn-group">
+              <ng-container *ngFor="let role of applicationRoles">
+                <input type="checkbox" class="btn-check" id="{{role}}" (change)="roleOnChange(role)"
+                [checked]="existingMemberRoles.includes(role)"
+                [class.is-invalid]="submitted && memberForm.get('roles')?.errors">
+                <label for="{{role}}" class="btn btn-outline-primary">{{role}}</label>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-danger" *ngIf="submitted && memberForm.get('roles')?.hasError('required')">
+          please select at least one role
+        </div>
+
+        <div class="form-floatin" *ngIf="errorMessages.length > 0">
+          <app-validation-messages [errorMessages]="errorMessages"></app-validation-messages>
+        </div>
+
+        <div class="row my-4">
+          <div class="col-6">
+            <div class="d-grid">
+              <button class="btn btn-block btn-info" type="submit">
+                {{ addNew ? 'create':'update' }} Member
+              </button>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="d-grid">
+              <button class="btn btn-block btn-danger" type="button" routerLink="/admin">
+                Back to list
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </main>
+  </div>
+</div>
+
